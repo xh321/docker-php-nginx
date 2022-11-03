@@ -5,9 +5,11 @@ LABEL Description="Lightweight container with Nginx 1.22 & PHP 8.1 based on Ubun
 WORKDIR /var/www/html
 
 # Install packages and remove default server definition
-RUN export DEBIAN_FRONTEND="noninteractive" && \
+RUN export LC_ALL=C.UTF-8 && \
+  export DEBIAN_FRONTEND="noninteractive" && \
   apt update && \ 
   apt install -y software-properties-common && \
+  add-apt-repository ppa:ondrej/nginx && \
   add-apt-repository ppa:ondrej/php && \
   apt install -y \
   curl \
