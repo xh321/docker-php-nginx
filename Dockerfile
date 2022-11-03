@@ -12,6 +12,7 @@ RUN export LC_ALL=C.UTF-8 && \
   add-apt-repository ppa:ondrej/nginx && \
   add-apt-repository ppa:ondrej/php && \
   apt install -y \
+  gnupg \
   curl \
   nginx \
   php8.1 \
