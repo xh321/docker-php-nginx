@@ -5,7 +5,8 @@ LABEL Description="Lightweight container with Nginx 1.22 & PHP 8.1 based on Ubun
 WORKDIR /var/www/html
 
 # Install packages and remove default server definition
-RUN apt install software-properties-common && \
+RUN apt update && \ 
+  apt install software-properties-common && \
   add-apt-repository ppa:ondrej/php && \
   apt install \
   curl \
