@@ -1,4 +1,4 @@
-FROM ubuntu:lastest
+FROM debian:stable
 LABEL Maintainer="XiaoHe321 <xiaohe321@Outlook.com>"
 LABEL Description="Lightweight container with Nginx 1.22 & PHP 8.1 based on Ubuntu."
 # Setup document root
