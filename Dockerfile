@@ -31,7 +31,7 @@ RUN export LC_ALL=C.UTF-8 && \
   supervisor
 
 # Create symlink (if not exist) so programs depending on `php` still function
-RUN [ ! -f "/usr/bin/php" ] && ln -s /usr/bin/php8.1 /usr/bin/php
+RUN [ -f "/usr/bin/php" ] || ln -s /usr/bin/php8.1 /usr/bin/php
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
