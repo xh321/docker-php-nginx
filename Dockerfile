@@ -1,40 +1,39 @@
-ARG ALPINE_VERSION=3.16
-FROM alpine:${ALPINE_VERSION}
-LABEL Maintainer="Tim de Pater <code@trafex.nl>"
-LABEL Description="Lightweight container with Nginx 1.22 & PHP 8.1 based on Alpine Linux."
+FROM ubuntu:lastest
+LABEL Maintainer="XiaoHe321 <xiaohe321@Outlook.com>"
+LABEL Description="Lightweight container with Nginx 1.22 & PHP 8.1 based on Ubuntu."
 # Setup document root
 WORKDIR /var/www/html
 
 # Install packages and remove default server definition
-RUN apk add --no-cache \
+RUN apt install software-properties-common && \
+  add-apt-repository ppa:ondrej/php && \
+  apt install \
   curl \
   nginx \
-  php81 \
-  php81-ctype \
-  php81-curl \
-  php81-dom \
-  php81-fpm \
-  php81-gd \
-  php81-intl \
-  php81-mbstring \
-  php81-mysqli \
-  php81-opcache \
-  php81-openssl \
-  php81-phar \
-  php81-session \
-  php81-xml \
-  php81-xmlreader \
+  php8.1 \
+  php8.1-ctype \
+  php8.1-curl \
+  php8.1-dom \
+  php8.1-fpm \
+  php8.1-gd \
+  php8.1-intl \
+  php8.1-mbstring \
+  php8.1-mysqli \
+  php8.1-opcache \
+  php8.1-phar \
+  php8.1-xml \
+  php8.1-xmlreader \
   supervisor
 
-# Create symlink so programs depending on `php` still function
-RUN ln -s /usr/bin/php81 /usr/bin/php
+# Create symlink (if not exist) so programs depending on `php` still function
+RUN [ ! -f "/usr/bin/php" ] && ln -s /usr/bin/php8.1 /usr/bin/php
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Configure PHP-FPM
-COPY config/fpm-pool.conf /etc/php81/php-fpm.d/www.conf
-COPY config/php.ini /etc/php81/conf.d/custom.ini
+COPY config/fpm-pool.conf /etc/php/8.1/php-fpm.d/www.conf
+COPY config/php.ini /etc/php/8.1/conf.d/custom.ini
 
 # Configure supervisord
 COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
